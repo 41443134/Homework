@@ -1,1 +1,26 @@
+#include <iostream>
+#include <vector>
 
+void printPowerset(const std::vector<int>& elements, size_t idx, std::vector<int>& currentSubset) {
+    if (idx == elements.size()) {
+        std::cout << "{";
+        for (size_t i = 0; i < currentSubset.size(); ++i) {
+            std::cout << currentSubset[i] << (i + 1 < currentSubset.size() ? ", " : "");
+        }
+        std::cout << "}\n";
+        return;
+    }
+
+    printPowerset(elements, idx + 1, currentSubset);
+
+    currentSubset.push_back(elements[idx]);
+    printPowerset(elements, idx + 1, currentSubset);
+    currentSubset.pop_back();
+}
+
+int main() {
+    std::vector<int> S = {1, 2, 3};
+    std::vector<int> current;
+    printPowerset(S, 0, current);
+    return 0;
+}
